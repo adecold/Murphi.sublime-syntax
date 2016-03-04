@@ -1,0 +1,83 @@
+%YAML 1.2
+---
+name: Murphi
+file_extensions: [m]
+scope: source.murphi
+
+contexts:
+  main:
+
+    # Comments
+    - include: comment
+    - match: '\/\*'
+      captures:
+        0: punctuation.definition.comment.murphi
+      push:
+        - meta_scope: comment.block.murphi
+        - match: '\*\/'
+          pop: true
+
+    # Errors
+    # Double equal sign is a common error: use one equal sign for equality testing.
+    - match: ==[^>]
+      scope: invalid.illegal.murphi
+    # Double && and || are errors.
+    - match: \&\&|\|\|
+      scope: invalid.illegal.murphi
+
+    # Functions
+    - match: \b(?i)(?:assert|clear|error|ismember|isundefined|multisetadd|multisetcount|multisetremove|multisetremovepred|put|return|undefine)\b
+      scope: entity.name.function.murphi
+    # Labels
+    - match: \b(?i)(?:const|invariant|type|var)\b
+      scope: entity.name.type.murphi
+
+    # Sections
+    - match: \b(?i)(?:begin|alias|choose|exists|function|procedure|record|rule|ruleset|startstate)\b
+      scope: entity.name.tag.murphi
+    - match: \b(?i)(?:end|endalias|endchoose|endexists|endfunction|endprocedure|endrecord|endrule|endruleset|endstartstate|)\b
+      scope: entity.name.tag.murphi
+
+    # Flow Control
+    - match: \b(?i)(?:by|case|do|else|elsif|endif|for|forall|if|switch|to|then|while)\b
+      scope: keyword.control.murphi
+    - match: \b(?i)(?:endif|endswitch|endfor|endforall|endwhile)\b
+      scope: keyword.control.murphi
+
+    # Reserved
+    - match: \b(?i)(?:in|interleaved|process|program|traceuntil)\b
+      scope: keyword.other.murphi
+
+    # Structures
+    - match: \b(?i)(?:array|enum|of|union)\b
+      scope: storage.modifier.murphi
+    # Boolean
+    - match: \b(?i)(?:boolean|multiset|scalarset)\b
+      scope: storage.type.murphi
+    # Boolean + UNDEFINED
+    - match: \b(?i)(?:false|true|UNDEFINED)\b
+      scope: constant.language.murphi
+    # Integers
+    - match: '\b([1-9]+[0-9]*|0)'
+      scope: constant.numeric.murphi
+    # Operators
+    - match: \?|\:|->|\||\&|\!|\<|<\=|\=|\!\=|\>\=|\>|\+|\-|\*|\/|\%
+      scope: keyword.operator.murphi
+
+    # Strings
+    - match: '"'
+      captures:
+        0: punctuation.definition.string.begin.murphi
+      push:
+        - meta_scope: string.quoted.double.murphi
+        - match: '"'
+          captures:
+            0: punctuation.definition.string.end.murphi
+          pop: true
+
+  comment:
+    - match: '(--).*$'
+      scope: comment.line.double-dash.murphi
+      captures:
+        1: punctuation.definition.comment.murphi
+
