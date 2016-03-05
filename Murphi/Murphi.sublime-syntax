@@ -33,15 +33,15 @@ contexts:
       scope: entity.name.type.murphi
 
     # Sections
-    - match: \b(?i)(?:begin|alias|choose|exists|function|procedure|record|rule|ruleset|startstate)\b
+    - match: \b(?i)(?:begin|alias|choose|function|procedure|record|rule|ruleset|startstate)\b
       scope: entity.name.tag.murphi
-    - match: \b(?i)(?:end|endalias|endchoose|endexists|endfunction|endprocedure|endrecord|endrule|endruleset|endstartstate|)\b
+    - match: \b(?i)(?:end|endalias|endchoose|endfunction|endprocedure|endrecord|endrule|endruleset|endstartstate|)\b
       scope: entity.name.tag.murphi
 
     # Flow Control
-    - match: \b(?i)(?:by|case|do|else|elsif|endif|for|forall|if|switch|to|then|while)\b
+    - match: \b(?i)(?:by|case|do|else|elsif|endif|exists|for|forall|if|switch|to|then|while)\b
       scope: keyword.control.murphi
-    - match: \b(?i)(?:endif|endswitch|endfor|endforall|endwhile)\b
+    - match: \b(?i)(?:endif|endswitch|endexists|endfor|endforall|endwhile)\b
       scope: keyword.control.murphi
 
     # Reserved
